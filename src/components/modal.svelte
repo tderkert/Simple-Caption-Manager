@@ -1,10 +1,11 @@
 <script>
     import { fly, fade } from 'svelte/transition';
     import { cubicOut } from 'svelte/easing';
-    export let visible = true;
-    
+    import { createEventDispatcher } from "svelte";
+    import { onMount } from 'svelte';
+    export let visible = true;    
 
-    
+    const dispatch = createEventDispatcher();
 
     // Transitions
     let flyProps = {
@@ -16,6 +17,15 @@
         duration: 200,
         easing: cubicOut
     }
+
+    onMount(() => {
+        // Create event listener for when escape key is pressed
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && visible === true) {
+                dispatch('close',true);
+            }
+        });
+    });
 
 
 </script>

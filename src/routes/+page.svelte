@@ -21,6 +21,8 @@
 	let currentDirectory = ""
 	let currentPair = {}
 	$: pairCount = pairsData.length
+
+	// Modal component state variables
 	let pathSelectorOpen = false;
 	let detailedViewOpen = false;
 
@@ -202,7 +204,7 @@
 
 <!-- MODAL: DETAILED VIEW -->
 
-<Modal visible={detailedViewOpen}>
+<Modal on:close="{ () => detailedViewOpen = false }" visible={detailedViewOpen}>
 	<Button on:click={ () => detailedViewOpen = false }>Close</Button>
 	<CaptionCard maxContentWidth="false" pair={currentPair} on:saveCaption={handleSaveCaption} />
 </Modal>
