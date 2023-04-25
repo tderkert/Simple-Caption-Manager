@@ -199,12 +199,12 @@
 
 <!-- MODALS -->
 <!-- MODAL: PATH SELECTOR -->
-<ModalPathSelector visible={pathSelectorOpen}/>
+<ModalPathSelector bind:visible={pathSelectorOpen}/>
 
 
 <!-- MODAL: DETAILED VIEW -->
 
-<Modal on:close="{ () => detailedViewOpen = false }" visible={detailedViewOpen}>
+<Modal bind:visible={detailedViewOpen}>
 	<Button on:click={ () => detailedViewOpen = false }>Close</Button>
 	<CaptionCard maxContentWidth="false" pair={currentPair} on:saveCaption={handleSaveCaption} />
 </Modal>

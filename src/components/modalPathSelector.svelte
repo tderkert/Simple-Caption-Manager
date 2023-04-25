@@ -38,7 +38,7 @@
 
 </script>
 
-<Modal visible={visible}>
+<Modal bind:visible={visible}>
 
     <!-- Card Element -->
     <div transition:fly={flyProps} class="flex flex-col gap-2 p-3 pr-5 rounded-xl bg-slate-800 min-w-[400px]">
