@@ -10,5 +10,6 @@ A simple web UI to write, modify and manage captions files images. Helpful when 
 * When captions are edited it updates the caption files instantly without asking to save anything (be careful)).
 
 
-## Run
-Run `npm run dev` in terminal, and open `http://localhost:5173/` in your browser.
+## How to get running
+1. Run `npm install` to install dependencies.
+2. Run `npm run dev` in terminal, and open `http://localhost:5173/` in your browser.
