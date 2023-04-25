@@ -29,5 +29,4 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <img class="rounded-lg cursor-pointer peer {imageSizeClass} " on:click={openInModal} src={pair.image_path} alt={pair.image_alt} >
     <p bind:innerText={pair.caption_content} on:input={saveCaption} class="w-full {paragraphHeight} p-4 pb-5  whitespace-normal rounded-lg bg-slate-800 bg-opacity-40 group-hover:bg-opacity-80 focus:bg-slate-800 ring-blue-500 resize-none focus:ring-2 transition" contenteditable="true" ></p>
-    <p class="text-xs opacity-30 self-start">{pair.id}</p>
 </div>
