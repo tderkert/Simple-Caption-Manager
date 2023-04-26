@@ -44,6 +44,22 @@
 
     onMount(() => {
 
+        // listen to key up and down it increments or decrements the currentDirectoryIndexStore
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowUp' && visible === true) {
+                if (currentDirectoryIndex > 0) {
+                    currentDirectoryIndexStore.set(currentDirectoryIndex - 1);
+                    updateFocus()
+                }
+            }
+            if (event.key === 'ArrowDown' && visible === true) {
+                if (currentDirectoryIndex < directories.length - 1) {
+                    currentDirectoryIndexStore.set(currentDirectoryIndex + 1);
+                    updateFocus()
+                }
+            }
+        });
+
         // listen to key press 1-9 and set the currentDirectoryStore to the corresponding directory
         document.addEventListener('keydown', function(event) {
             if (event.key === '1' && visible === true) {
@@ -96,23 +112,28 @@
                 }, 400);
             }
             if (event.key === '8' && visible === true) {
-                document.getElementById("directory-1").focus();
+                document.getElementById("directory-8").focus();
                 setTimeout(() => {
                     currentDirectoryStore.set(directories[7].directory_path);
                     currentDirectoryIndexStore.set(7)
                 }, 400);
             }
             if (event.key === '9' && visible === true) {
-                document.getElementById("directory-8").focus();
-                    setTimeout(() => {
-                        currentDirectoryStore.set(directories[8].directory_path);
-                        currentDirectoryIndexStore.set(8)
-                    }, 400);
+                document.getElementById("directory-9").focus();
+                setTimeout(() => {
+                    currentDirectoryStore.set(directories[8].directory_path);
+                    currentDirectoryIndexStore.set(8)
+                }, 400);
                 }
         });
     });
 
     afterUpdate(() => {
+        updateFocus()
+
+    });
+
+    function updateFocus() {
         console.log("currentDirectoryIndex", currentDirectoryIndex)
         // selecte element based on data-index attribute
         let currentFocus = document.querySelector(`[data-index="${currentDirectoryIndex}"]`)
@@ -120,20 +141,19 @@
             console.log("currentFocus", currentFocus)
             currentFocus.focus();
         }
-
-    });
+    }
 
 </script>
 
 <Modal bind:visible={visible}>
 
     <!-- Card Element -->
-    <div transition:fly={flyProps} class="flex flex-col gap-2 p-3 pr-5 rounded-xl bg-slate-800 min-w-[400px]">
+    <div transition:fly={flyProps} class="flex flex-col gap-2 p-3 rounded-xl bg-slate-800 min-w-[400px]">
         <h2 role="dialog" aria-modal="true" class="px-4 py-2 pt-2 opacity-50">Choose a directory to work on:</h2>
         {#each directories as directory, index}
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <button id="directory-{index+1}" on:click|preventDefault={handleDirectoryClick} data-path="{directory.directory_path}" data-index="{index}" 
-                class=" flex gap-4 p-4 pr-6 bg-slate-900  hover:bg-opacity-80 rounded-lg cursor-pointer transition
+                class="flex gap-4 p-4 pr-6 bg-slate-900  hover:bg-opacity-80 rounded-lg cursor-pointer transition
                 {currentDirectory == directory.directory_path ? 'bg-opacity-100' : 'bg-opacity-40'}
                 focus:ring-2 focus:ring-opacity-100 focus:ring-blue-500"
                 >
