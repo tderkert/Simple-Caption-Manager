@@ -78,15 +78,19 @@
 		//// Detailed View traverse between images ///////
 		//////////////////////////////////////////////////
 
+		// Listen to left/righ key + command key press and traverse between images
+		
+
 		window.addEventListener('keydown', function (event) {
 			if (detailedViewOpen) {
-				if (event.key == "ArrowLeft" && event.altKey && event.shiftKey) {
+				event.preventDefault();
+				if (event.key == "ArrowLeft" && event.metaKey) {
 					if (currentIndex > 0) {
 						currentIndex--;
 						currentPair = pairsData[currentIndex];
 						currentPairStore.set(currentPair);
 					}
-				} else if (event.key == "ArrowRight" && event.altKey && event.shiftKey) {
+				} else if (event.key == "ArrowRight" && event.metaKey) {
 					if (currentIndex < pairsData.length - 1) {
 						currentIndex++;
 						currentPair = pairsData[currentIndex];
