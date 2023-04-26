@@ -12,7 +12,7 @@ A simple web UI to write, modify and manage captions files images. Helpful when 
 
 ## Shortcuts
 * Open directory selecter:  `Ctrl` + `O`.
-* Traverse between images when in focus mode: `Opt` + `Shift` + `Left`/`Right`.
+* Traverse between images when in focus mode: `Opt` + `Shift` + `Left/Right`.
 
 
 
