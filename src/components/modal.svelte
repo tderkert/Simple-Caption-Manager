@@ -29,7 +29,7 @@
 
 {#if visible}
 <div transition:fade={fadeProps} class="fixed inset-0 bg-slate-950 bg-opacity-90 p-10 z-40">
-    <div class="flex flex-col gap-10 pb-12 items-center justify-center w-full h-full flex-shrink-0">
+    <div transition:fly={flyProps} class="flex flex-col gap-10 pb-12 items-center justify-center w-full h-full flex-shrink-0">
         <slot></slot>
     </div>
 </div>	

@@ -7,7 +7,7 @@
 	import Header from "/src/components/header.svelte";
 	import Main from "/src/components/main.svelte";
     import SidePanel from '/src/components/sidePanel.svelte';
-    import ModalPathSelector from '/src/components/modalPathSelector.svelte';
+    import ModalDirectorySelector from '/src/components/modalDirectorySelector.svelte';
 	import Modal from '/src/components/modal.svelte';
 	import Button from '/src/components/button.svelte';
     import CaptionCard from '../components/captionCard.svelte';
@@ -198,12 +198,10 @@
 <SidePanel on:searchAndReplace={handleSearchAndReplace}/>
 
 <!-- MODALS -->
+
 <!-- MODAL: PATH SELECTOR -->
-<ModalPathSelector bind:visible={pathSelectorOpen}/>
-
-
+<ModalDirectorySelector bind:visible={pathSelectorOpen}/>
 <!-- MODAL: DETAILED VIEW -->
-
 <Modal bind:visible={detailedViewOpen}>
 	<Button on:click={ () => detailedViewOpen = false }>Close</Button>
 	<CaptionCard maxContentWidth="false" pair={currentPair} on:saveCaption={handleSaveCaption} />
