@@ -20,7 +20,7 @@
 	let pairsData = []
 	let currentDirectory = ""
 	let currentPair = {}
-	let currentIndex
+	let currentPairIndex
 	$: pairCount = pairsData.length
 
 	// Modal component state variables
@@ -85,15 +85,15 @@
 			if (detailedViewOpen) {
 				event.preventDefault();
 				if (event.key == "ArrowLeft" && event.metaKey) {
-					if (currentIndex > 0) {
-						currentIndex--;
-						currentPair = pairsData[currentIndex];
+					if (currentPairIndex > 0) {
+						currentPairIndex--;
+						currentPair = pairsData[currentPairIndex];
 						currentPairStore.set(currentPair);
 					}
 				} else if (event.key == "ArrowRight" && event.metaKey) {
-					if (currentIndex < pairsData.length - 1) {
-						currentIndex++;
-						currentPair = pairsData[currentIndex];
+					if (currentPairIndex < pairsData.length - 1) {
+						currentPairIndex++;
+						currentPair = pairsData[currentPairIndex];
 						currentPairStore.set(currentPair);
 					}
 				}
@@ -102,7 +102,8 @@
 
 		// Open directory selector when clicking control key + O
 		window.addEventListener('keydown', function (event) {
-			if (event.key == "o" && event.ctrlKey) {
+			if (event.key == "o" && event.metaKey) {
+				event.preventDefault();
 				openDirectorySelector()
 			}
 		});
@@ -262,7 +263,7 @@
 	function handleOpenInModal(event) {
 		console.log("handleOpenInModal", event.detail.pair);
 		currentPair = event.detail.pair;
-		currentIndex = event.detail.index;
+		currentPairIndex = event.detail.index;
 		detailedViewOpen = true;
 	}
 
