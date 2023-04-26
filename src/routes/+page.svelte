@@ -2,7 +2,7 @@
 	// Svelte
     import { onMount } from 'svelte';
 	// Store
-	import { directoriesStore, currentDirectoryStore, currentPairStore } from '/src/lib/store/GlobalStore.js';
+	import { directoriesStore, currentDirectoryStore, currentDirectoryIndexStore, currentPairStore } from '/src/lib/store/GlobalStore.js';
 	// Components
 	import Header from "/src/components/header.svelte";
 	import Main from "/src/components/main.svelte";
@@ -19,6 +19,7 @@
 	let directories = []
 	let pairsData = []
 	let currentDirectory = ""
+	let currentDirectoryIndex = 0
 	let currentPair = {}
 	let currentPairIndex
 	$: pairCount = pairsData.length
@@ -40,6 +41,10 @@
 	});
 
 	currentPairStore.subscribe(value => {
+		console.log("currentPairStore", value);
+	});
+
+	currentDirectoryIndexStore.subscribe(value => {
 		console.log("currentPairStore", value);
 	});
 
