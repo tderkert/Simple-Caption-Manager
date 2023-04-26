@@ -66,7 +66,10 @@
 		fetch('/image-caption-pairs?directory=' + directory)
 			.then(response => response.json())
 			.then(data => {
-				pairsData = data;
+				pairsData = []
+				setTimeout(() => {
+					pairsData = data;
+				}, 500);
 				console.log(pairsData);
 			})
 	}
