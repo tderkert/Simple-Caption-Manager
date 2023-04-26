@@ -12,9 +12,9 @@
         currentDirectoryString = value.replace(/^.*[\\\/]/, '');
     });
 
-    function handleOpenPathSelector(event){
-        console.log("handleOpenPathSelector");
-        dispatch("openPathSelector", {
+    function handleOpenDirectorySelector(event){
+        console.log("handleOpenDirectorySelector");
+        dispatch("openDirectorySelector", {
             open: true
         })
     }
@@ -36,6 +36,6 @@
     </div>
 
     <!-- Change directory -->
-    <Button on:click={handleOpenPathSelector}><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg> Change directory</Button>
+    <Button on:click={handleOpenDirectorySelector}><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg> Change directory</Button>
 
 </div>

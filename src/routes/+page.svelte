@@ -23,7 +23,7 @@
 	$: pairCount = pairsData.length
 
 	// Modal component state variables
-	let pathSelectorOpen = false;
+	let directorySelectorOpen = false;
 	let detailedViewOpen = false;
 
 	// Subscribe to global state store
@@ -34,7 +34,7 @@
 		currentDirectory = value;
 		if (currentDirectory != "") {
 			fetchPairsData(currentDirectory);
-			closePathSelector();
+			closeDirectorySelector();
 		}
 	});
 
@@ -51,7 +51,7 @@
 			.then(data => {
 				directoriesStore.set(data);
 				console.log(directories);
-				openPathSelector()
+				openDirectorySelector()
 			})
 
 	});
@@ -73,14 +73,14 @@
 
 	///////////////////////////////////////////////////////
 
-	function openPathSelector() {
-		console.log("openPathSelector");
-		pathSelectorOpen = true;
+	function openDirectorySelector() {
+		console.log("openDirectorySelector");
+		directorySelectorOpen = true;
 	}
 
-	function closePathSelector() {
-		console.log("closePathSelector");
-		pathSelectorOpen = false;
+	function closeDirectorySelector() {
+		console.log("closeDirectorySelector");
+		directorySelectorOpen = false;
 	}
 
 	////////////////////////////////////////////////////////	
@@ -171,16 +171,11 @@
 		saveCaption(pair);
 	}
 
-	function handleSelectDirectory(event) {
-		console.log("handleSelectDirectory", event.detail.directory);
-		// pathSelectorOpen = false
-		// let directory = event.detail.directory;
-		// selectedDirectory = directory;
-		// fetchPairsData(directory)
-	}
-	function handleOpenPathSelector(event) {
-		console.log("handleOpenPathSelector");
-		openPathSelector()
+
+	
+	function handleOpenDirectorySelector(event) {
+		console.log("handleOpenDirectorySelector");
+		openDirectorySelector()
 	}
 
 	function handleOpenInModal(event) {
@@ -191,7 +186,7 @@
 </script>
 
 
-<Header {pairCount} on:openPathSelector={handleOpenPathSelector}/>
+<Header {pairCount} on:openDirectorySelector={handleOpenDirectorySelector}/>
 
 <Main {pairsData} on:saveCaption={handleSaveCaption} on:openInModal={handleOpenInModal}></Main>
 
@@ -200,7 +195,7 @@
 <!-- MODALS -->
 
 <!-- MODAL: PATH SELECTOR -->
-<ModalDirectorySelector bind:visible={pathSelectorOpen}/>
+<ModalDirectorySelector bind:visible={directorySelectorOpen}/>
 <!-- MODAL: DETAILED VIEW -->
 <Modal bind:visible={detailedViewOpen}>
 	<Button on:click={ () => detailedViewOpen = false }>Close</Button>
