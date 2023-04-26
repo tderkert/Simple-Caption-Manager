@@ -96,6 +96,12 @@
 			}
 		});
 
+		// Open directory selector when clicking control key + O
+		window.addEventListener('keydown', function (event) {
+			if (event.key == "o" && event.ctrlKey) {
+				openDirectorySelector()
+			}
+		});
 	}
 
 	///////////////////////////////////////////////////////
