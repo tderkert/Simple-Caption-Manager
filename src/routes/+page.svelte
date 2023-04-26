@@ -20,6 +20,7 @@
 	let pairsData = []
 	let currentDirectory = ""
 	let currentPair = {}
+	let currentIndex
 	$: pairCount = pairsData.length
 
 	// Modal component state variables
@@ -72,6 +73,29 @@
 				}, 500);
 				console.log(pairsData);
 			})
+
+		//////////////////////////////////////////////////
+		//// Detailed View traverse between images ///////
+		//////////////////////////////////////////////////
+
+		window.addEventListener('keydown', function (event) {
+			if (detailedViewOpen) {
+				if (event.key == "ArrowLeft" && event.altKey && event.shiftKey) {
+					if (currentIndex > 0) {
+						currentIndex--;
+						currentPair = pairsData[currentIndex];
+						currentPairStore.set(currentPair);
+					}
+				} else if (event.key == "ArrowRight" && event.altKey && event.shiftKey) {
+					if (currentIndex < pairsData.length - 1) {
+						currentIndex++;
+						currentPair = pairsData[currentIndex];
+						currentPairStore.set(currentPair);
+					}
+				}
+			}
+		});
+
 	}
 
 	///////////////////////////////////////////////////////
@@ -79,6 +103,7 @@
 	function openDirectorySelector() {
 		console.log("openDirectorySelector");
 		directorySelectorOpen = true;
+		// set focus on current directory
 	}
 
 	function closeDirectorySelector() {
@@ -227,8 +252,12 @@
 	function handleOpenInModal(event) {
 		console.log("handleOpenInModal", event.detail.pair);
 		currentPair = event.detail.pair;
+		currentIndex = event.detail.index;
 		detailedViewOpen = true;
 	}
+
+	
+
 </script>
 
 

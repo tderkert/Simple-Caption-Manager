@@ -2,6 +2,7 @@
     import { createEventDispatcher } from "svelte";
 
     export let pair = {};
+    export let index = 0;
     export let maxContentWidth = false
 
     let visible = false
@@ -19,9 +20,10 @@
         });
     };
     function openInModal() {
-        console.log("openInModal: openInModal")
+        console.log("openInModal: openInModal", index)
         dispatch('openInModal', {
-            pair: pair
+            pair: pair,
+            index: index
         });
     };
 

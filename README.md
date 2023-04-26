@@ -7,7 +7,13 @@ A simple web UI to write, modify and manage captions files images. Helpful when 
 ## How to use
 * Put folders with images in `/data/`. 
 * If an image file has no caption file it will be created automatically. (Caption files are `.txt` files with the same name as the image.) 
-* When captions are edited it updates the caption files instantly without asking to save anything (be careful)).
+* When captions are edited it updates the caption files instantly without asking to save anything (be careful).
+* Click on images to view in bigger size; focus mode.
+
+## Shortcuts
+* Open directory selecter:  `Ctrl` + `O`.
+* Traverse between images when in focus mode: `Opt` + `Shift` + `Left`/`Right`.
+
 
 
 ## How to get running
