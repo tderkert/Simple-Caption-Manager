@@ -124,6 +124,43 @@
 		
 	}
 
+	///////////////////////////////////////////////////////////
+	/////////// Append to captions functionality //////////////
+	///////////////////////////////////////////////////////////
+	
+	function appendToCaptions(string, useComma) {
+		for (let i = 0; i < pairsData.length; i++) {
+			let pair = pairsData[i];
+			let captionContent = pair.caption_content;
+			let newCaptionContent
+			// TODO: Figure out why a comma is added if the caption is empty
+			if (captionContent == "") {
+				newCaptionContent = "" + string;
+			}else if (useComma) {
+				
+				newCaptionContent = captionContent + ", " + string;
+			} else {
+				newCaptionContent = captionContent + " " + string;
+			}
+			pair.caption_content = newCaptionContent.replaceAll("\n", "");
+			saveCaption(pair)
+		}
+	}
+
+	////////////////////////////////////////////////////////
+	/////////////// Clear all captions /////////////////////
+	////////////////////////////////////////////////////////
+	
+	function clearAllCaptions() {
+		let confirmClear = confirm("Are you sure you want to clear all captions in this directory?");
+		if (confirmClear) {
+			for (let i = 0; i < pairsData.length; i++) {
+				let pair = pairsData[i];
+				pair.caption_content = "";
+				saveCaption(pair);
+			}
+		}
+	}
 
 
 	////////////////////////////////////////////////////////
@@ -168,6 +205,12 @@
 		searchAndReplace(searchInput, replaceInput);
 	}
 
+	function handleAppendToCaptions(event) {
+		let string = event.detail.string;
+		let useComma = event.detail.useComma;
+		appendToCaptions(string, useComma);
+	}
+
 	function handleSaveCaption(event) {
 		console.log("handleSaveCaption", event.detail.pair);
 		let pair = event.detail.pair;
@@ -193,7 +236,11 @@
 
 <Main {pairsData} on:saveCaption={handleSaveCaption} on:openInModal={handleOpenInModal}></Main>
 
-<SidePanel on:searchAndReplace={handleSearchAndReplace}/>
+<SidePanel 
+	on:searchAndReplace={handleSearchAndReplace} 
+	on:clearAllCaptions={clearAllCaptions}
+	on:appendToCaptions={handleAppendToCaptions}
+/>
 
 <!-- MODALS -->
 
