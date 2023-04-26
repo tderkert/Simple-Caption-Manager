@@ -13,6 +13,7 @@ A simple web UI to write, modify and manage captions files images. Helpful when 
 ## Shortcuts
 * Open directory selecter:  `Ctrl` + `O`.
   * Select directory using keyboard: `1-9`.
+  * Navigate in directory list `Up/Down`, press `Enter` to select.
 * Traverse between images when in focus mode: `Cmd` + `Left/Right`.
 
 
