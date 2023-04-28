@@ -41,8 +41,10 @@
     // Update selected directory
     function handleDirectoryClick(event) {
         currentDirectoryStore.set(event.target.dataset.path);
-        // convert index to number
-        let intexAsNumber = Number(event.target.dataset.index);
+        // index is not a number, turn it into a number
+
+        
+        let indexAsNumber = Number(event.target.dataset.index);
         currentDirectoryIndexStore.set(indexAsNumber);
     }
 
