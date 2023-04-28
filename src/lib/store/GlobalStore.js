@@ -15,4 +15,8 @@ currentDirectoryStore.subscribe(() => {
     console.log("currentDirectoryStore changed");
 });
 
+currentDirectoryIndexStore.subscribe(() => {
+    console.log("currentDirectoryIndexStore changed");
+});
+
 

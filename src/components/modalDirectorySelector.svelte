@@ -41,7 +41,9 @@
     // Update selected directory
     function handleDirectoryClick(event) {
         currentDirectoryStore.set(event.target.dataset.path);
-        currentDirectoryIndexStore.set(event.target.dataset.index);
+        // convert index to number
+        let intexAsNumber = Number(event.target.dataset.index);
+        currentDirectoryIndexStore.set(indexAsNumber);
     }
 
     onMount(() => {
@@ -49,6 +51,7 @@
         // listen to key up and down it increments or decrements the currentDirectoryIndexStore
         document.addEventListener('keydown', function(event) {
             if (event.key === 'ArrowUp' && visible === true) {
+
                 if (currentDirectoryIndex > 0) {
                     currentDirectoryIndexStore.set(currentDirectoryIndex - 1);
                     updateFocus()
@@ -136,7 +139,6 @@
     });
 
     function updateFocus() {
-        console.log("currentDirectoryIndex", currentDirectoryIndex)
         // selecte element based on data-index attribute
         let currentFocus = document.querySelector(`[data-index="${currentDirectoryIndex}"]`)
         if (currentFocus) {
