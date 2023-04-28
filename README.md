@@ -1,7 +1,7 @@
 # Simple Caption Manager
 A simple web UI to write, modify and manage image caption files. Helpful when writing captions for images intended for training with Stable Diffusion etc.
 
-![Simple Caption Manager - Preview Image](https://user-images.githubusercontent.com/6050484/234392098-cb47b4bc-1d23-4bc8-a900-cbb87d2c5f39.png)
+![Simple Caption Manager - Preview Image](https://user-images.githubusercontent.com/6050484/235248234-6912cc18-e01f-4f14-b8ce-f25057eb715d.png)
 
 
 ## How to use

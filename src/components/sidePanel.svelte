@@ -91,7 +91,7 @@
     <div class="flex flex-col">
         <!-- CONTENT -->
         <div class="p-4 flex flex-col gap-4 items-stretch">
-            <Button on:click={addFilenamesToCaptions}> Add filenames to captions...</Button>
+            <Button on:click={addFilenamesToCaptions}> Use filenames as captions...</Button>
         </div>
     </div>
     <!-- END CONTAINER -->
