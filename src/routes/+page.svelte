@@ -11,6 +11,7 @@
 	import Modal from '/src/components/modal.svelte';
 	import Button from '/src/components/button.svelte';
     import CaptionCard from '../components/captionCard.svelte';
+	import Tag from '/src/components/tag.svelte';
 
 	// Clear console
 	console.clear()
@@ -79,6 +80,7 @@
 				console.log(pairsData);
 			})
 
+
 		//////////////////////////////////////////////////
 		//// Detailed View traverse between images ///////
 		//////////////////////////////////////////////////
@@ -90,17 +92,9 @@
 			if (detailedViewOpen) {
 				event.preventDefault();
 				if (event.key == "ArrowLeft" && event.metaKey) {
-					if (currentPairIndex > 0) {
-						currentPairIndex--;
-						currentPair = pairsData[currentPairIndex];
-						currentPairStore.set(currentPair);
-					}
+					currentPairPrevious()
 				} else if (event.key == "ArrowRight" && event.metaKey) {
-					if (currentPairIndex < pairsData.length - 1) {
-						currentPairIndex++;
-						currentPair = pairsData[currentPairIndex];
-						currentPairStore.set(currentPair);
-					}
+					currentPairNext()
 				}
 			}
 		});
@@ -115,6 +109,8 @@
 	}
 
 	///////////////////////////////////////////////////////
+	/////////// Directory selector functionality //////////
+	///////////////////////////////////////////////////////
 
 	function openDirectorySelector() {
 		console.log("openDirectorySelector");
@@ -126,6 +122,25 @@
 		console.log("closeDirectorySelector");
 		directorySelectorOpen = false;
 	}
+
+	///////////////////////////////////////////////////////
+	/////////// Detailed View functionality ///////////////
+	///////////////////////////////////////////////////////
+
+	function currentPairNext() {
+			if (currentPairIndex < pairsData.length - 1) {
+				currentPairIndex++;
+				currentPair = pairsData[currentPairIndex];
+				currentPairStore.set(currentPair);
+			}
+		}
+		function currentPairPrevious() {
+			if (currentPairIndex > 0) {
+				currentPairIndex--;
+				currentPair = pairsData[currentPairIndex];
+				currentPairStore.set(currentPair);
+			}
+		}
 
 	////////////////////////////////////////////////////////	
 	/////////// Search and replace functionality ///////////
@@ -293,6 +308,10 @@
 <ModalDirectorySelector bind:visible={directorySelectorOpen}/>
 <!-- MODAL: DETAILED VIEW -->
 <Modal bind:visible={detailedViewOpen}>
-	<Button on:click={ () => detailedViewOpen = false }>Close</Button>
+	<div class="flex gap-2">
+		<Button on:click={currentPairPrevious}>Previous <Tag label="Cmd + ←" /></Button>
+		<Button on:click={ () => detailedViewOpen = false }>Close</Button>
+		<Button on:click={currentPairNext}>Next <Tag label="Cmd + →" /></Button>
+	</div>
 	<CaptionCard maxContentWidth="false" pair={currentPair} on:saveCaption={handleSaveCaption} />
 </Modal>
