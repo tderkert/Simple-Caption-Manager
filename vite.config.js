@@ -10,7 +10,8 @@ export default defineConfig({
 		proxy: {
 			'/image-caption-pairs': 'http://localhost:3000',
 			'/update-caption': 'http://localhost:3000',
-			'/directories': 'http://localhost:3000'
+			'/directories': 'http://localhost:3000',
+			'/add-filenames-to-captions': 'http://localhost:3000'
 		}
 	}
 });

@@ -78,24 +78,7 @@ function setCaptionsBasedOnFilename(directory){
 
 }
 
-
-
-
-////////////////////////////////////////
-///////////// API Endpoints ////////////
-////////////////////////////////////////
-
-
-
-// get image-caption-pairs from directory
-app.get('/image-caption-pairs?:directory', (req, res) => {
-  const directory = req.query.directory;
-
-  
-  // Create missing caption files
-  createMissingCaptionFiles(directory)
-
-
+function createImageCaptionPairsData(directory) {
   // Get image-caption-pairs
   const imageCaptionPairs = fs.readdirSync(directory)
     .filter(file => /\.(jpe?g|png|gif)$/i.test(file))
@@ -110,13 +93,34 @@ app.get('/image-caption-pairs?:directory', (req, res) => {
     const captionContent = fs.readFileSync(pair.caption_path, 'utf-8');
     return { ...pair, caption_content: captionContent };
   });
-  res.json(pairsWithCaptions);
+  return pairsWithCaptions;
+}
+
+
+////////////////////////////////////////
+///////////// API Endpoints ////////////
+////////////////////////////////////////
+
+
+
+// get image-caption-pairs from directory
+app.get('/image-caption-pairs?:directory', (req, res) => {
+  const directory = req.query.directory;
+
+  // Create missing caption files
+  createMissingCaptionFiles(directory)
+
+  // Get image caption pairs
+  const imageCaptionPairs = createImageCaptionPairsData(directory)
+
+  // Send image caption pairs
+  res.json(imageCaptionPairs);
 
 });
 
 
 
-// Update caption file
+// Update single caption file
 app.post('/update-caption', (req, res) => {
   console.log('POST RESPONSE',req.body)
   const { caption_path, caption_content } = req.body;
@@ -133,6 +137,23 @@ app.get('/directories', (req, res) => {
       directory_name: directory
     }));
   res.json(directories);
+});
+
+// Endpoint to set captions based on filename
+app.get('/add-filenames-to-captions?:directory', (req, res) => {
+  const directory = req.query.directory;
+
+  // Set captions based on filename
+  setCaptionsBasedOnFilename(directory)
+
+  // Create missing caption files
+  createMissingCaptionFiles(directory)
+
+  // Get image caption pairs
+  const imageCaptionPairs = createImageCaptionPairsData(directory)
+
+  // Send image caption pairs
+  res.json(imageCaptionPairs);
 });
 
 

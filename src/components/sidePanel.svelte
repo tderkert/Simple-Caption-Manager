@@ -33,6 +33,12 @@
             clearAllCaptions: true
         });
     }
+
+    function addFilenamesToCaptions(event){
+        dispatch("addFilenamesToCaptions", {
+            addFilenamesToCaptions: true
+        });
+    }
     
 </script>
 
@@ -83,14 +89,20 @@
 
     <!-- CONTAINER -->
     <div class="flex flex-col">
-        <!-- HEADER -->
-        <div class="p-4 pb-0">
-            <h2 class="text-medium">Batch change captions</h2>
+        <!-- CONTENT -->
+        <div class="p-4 flex flex-col gap-4 items-stretch">
+            <Button on:click={addFilenamesToCaptions}> Add filenames to captions...</Button>
         </div>
+    </div>
+    <!-- END CONTAINER -->
+
+    <!-- CONTAINER -->
+    <div class="flex flex-col">
         <!-- CONTENT -->
         <div class="p-4 flex flex-col gap-4 items-stretch">
             <Button on:click={clearAllCaptions}> Clear captions...</Button>
         </div>
     </div>
     <!-- END CONTAINER -->
+
 </div>

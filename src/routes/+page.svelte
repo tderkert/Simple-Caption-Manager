@@ -218,6 +218,24 @@
 		}
 	}
 
+	////////////////////////////////////////////////////////
+	/////////////// Add filenames to captions /////////////
+	////////////////////////////////////////////////////////
+
+	function addFilenamesToCaptions(){
+		let confirmClear = confirm("Are you sure you want to captions to filenames?");
+		if (confirmClear) {
+			let directory = currentDirectory;
+			fetch('/add-filenames-to-captions?directory=' + directory)
+				.then(response => response.json())
+				.then(data => {
+					let newPairsData = data;
+					console.log(newPairsData);
+					pairsData = newPairsData;
+				})
+		}
+	}
+
 
 	////////////////////////////////////////////////////////
 	/////////////// Save functionality /////////////////////
@@ -300,6 +318,7 @@
 	on:searchAndReplace={handleSearchAndReplace} 
 	on:clearAllCaptions={clearAllCaptions}
 	on:appendToCaptions={handleAppendToCaptions}
+	on:addFilenamesToCaptions={addFilenamesToCaptions}
 />
 
 <!-- MODALS -->
