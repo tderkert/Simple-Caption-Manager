@@ -35,15 +35,9 @@ function createMissingCaptionFiles(directory){
 
       // Check if caption file already exists
       if (!fs.existsSync(captionFilePath)) {
-          // Raw caption
-          let tempCaption = `${path.parse(filePath).name}`
-          
-          // Remove parentheses and content
-          const parenthesesAndContentRegex = /\([^()]*\)/g;
-          tempCaption = tempCaption.replace(parenthesesAndContentRegex, '')
 
-          // Write caption to file
-          fs.writeFileSync(captionFilePath, tempCaption);
+          // Write empty caption to file
+          fs.writeFileSync(captionFilePath, '');
           console.log(`Caption file created for ${file}.`);
       } else {
           captionFiles.push(file);
