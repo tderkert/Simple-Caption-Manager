@@ -1,7 +1,8 @@
 <script>
     import { createEventDispatcher } from "svelte";
-    import Button from "/src/components/button.svelte";
     import { currentDirectoryStore } from '/src/lib/store/GlobalStore.js';
+    import Button from "/src/components/button.svelte";
+    import Tag from "/src/components/tag.svelte";
 
     export let pairCount = 0;
     const dispatch = createEventDispatcher();
@@ -44,6 +45,10 @@
     </div>
 
     <!-- Change directory -->
-    <Button on:click={handleOpenDirectorySelector}><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg> Change directory</Button>
+    <Button on:click={handleOpenDirectorySelector}>
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg> 
+        Change directory
+        <Tag label="Cmd + O" />
+    </Button>
 
 </div>

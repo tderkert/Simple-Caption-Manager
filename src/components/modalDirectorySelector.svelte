@@ -4,6 +4,8 @@
     import { cubicOut } from 'svelte/easing';
     import Modal from '/src/components/modal.svelte';
     import { afterUpdate, onMount } from 'svelte';
+    import Tag from '/src/components/tag.svelte';
+
     export let visible = true;
     
     
@@ -153,13 +155,13 @@
         {#each directories as directory, index}
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <button id="directory-{index+1}" on:click|preventDefault={handleDirectoryClick} data-path="{directory.directory_path}" data-index="{index}" 
-                class="flex gap-4 p-4 pr-6 bg-slate-900  hover:bg-opacity-80 rounded-lg cursor-pointer transition
+                class="flex items-center gap-4 p-4 bg-slate-900  hover:bg-opacity-80 rounded-lg cursor-pointer transition
                 {currentDirectory == directory.directory_path ? 'bg-opacity-100' : 'bg-opacity-40'}
                 focus:ring-2 focus:ring-opacity-100 focus:ring-blue-500"
                 >
                 <svg class="pointer-events-none" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                 <span class="pointer-events-none w-full text-left">{directory.directory_name}</span>
-                <span class="pointer-events-none opacity-40">{index+1}</span>
+                <Tag label={index+1} />
             </button>
         {/each}
     </div>
