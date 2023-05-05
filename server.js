@@ -130,13 +130,24 @@ app.post('/update-caption', (req, res) => {
 
 // Get directories in directoryPath and each directory name
 app.get('/directories', (req, res) => {
+  
+  // Get directories in directoryPath and each directory name and count of image files
   const directories = fs.readdirSync(dataRootPath)
     .filter(file => fs.statSync(path.join(dataRootPath, file)).isDirectory())
     .map(directory => ({
       directory_path: path.join(dataRootPath, directory),
-      directory_name: directory
+      directory_name: directory,
+      image_count: fs.readdirSync(path.join(dataRootPath, directory)).filter(file => /\.(jpe?g|png|gif)$/i.test(file)).length,
     }));
   res.json(directories);
+
+  // const directories = fs.readdirSync(dataRootPath)
+  //   .filter(file => fs.statSync(path.join(dataRootPath, file)).isDirectory())
+  //   .map(directory => ({
+  //     directory_path: path.join(dataRootPath, directory),
+  //     directory_name: directory
+  //   }));
+  // res.json(directories);
 });
 
 // Endpoint to set captions based on filename

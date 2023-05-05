@@ -67,72 +67,7 @@
             }
         });
 
-        // listen to key press 1-9 and set the currentDirectoryStore to the corresponding directory
-        document.addEventListener('keydown', function(event) {
-            if (event.key === '1' && visible === true) {
-                document.getElementById("directory-1").focus();
-                setTimeout(() => {
-                    currentDirectoryStore.set(directories[0].directory_path);
-                    currentDirectoryIndexStore.set(0)
-                }, 400);
-            }
-            if (event.key === '2' && visible === true) {
-                document.getElementById("directory-2").focus();
-                setTimeout(() => {
-                    currentDirectoryStore.set(directories[1].directory_path);
-                    currentDirectoryIndexStore.set(1)
-                }, 300);
-            }
-            if (event.key === '3' && visible === true) {
-                document.getElementById("directory-3").focus();
-                setTimeout(() => {
-                    currentDirectoryStore.set(directories[2].directory_path);
-                    currentDirectoryIndexStore.set(2)
-                }, 400);
-            }
-            if (event.key === '4' && visible === true) {
-                document.getElementById("directory-4").focus();
-                setTimeout(() => {
-                    currentDirectoryStore.set(directories[3].directory_path);
-                    currentDirectoryIndexStore.set(3)
-                }, 400);
-            }
-            if (event.key === '5' && visible === true) {
-                document.getElementById("directory-5").focus();
-                setTimeout(() => {
-                    currentDirectoryStore.set(directories[4].directory_path);
-                    currentDirectoryIndexStore.set(4)
-                }, 400);
-            }
-            if (event.key === '6' && visible === true) {
-                document.getElementById("directory-6").focus();
-                setTimeout(() => {
-                    currentDirectoryStore.set(directories[5].directory_path);
-                    currentDirectoryIndexStore.set(5)
-                }, 400);
-            }
-            if (event.key === '7' && visible === true) {
-                document.getElementById("directory-7").focus();
-                setTimeout(() => {
-                    currentDirectoryStore.set(directories[6].directory_path);
-                    currentDirectoryIndexStore.set(6)
-                }, 400);
-            }
-            if (event.key === '8' && visible === true) {
-                document.getElementById("directory-8").focus();
-                setTimeout(() => {
-                    currentDirectoryStore.set(directories[7].directory_path);
-                    currentDirectoryIndexStore.set(7)
-                }, 400);
-            }
-            if (event.key === '9' && visible === true) {
-                document.getElementById("directory-9").focus();
-                setTimeout(() => {
-                    currentDirectoryStore.set(directories[8].directory_path);
-                    currentDirectoryIndexStore.set(8)
-                }, 400);
-                }
-        });
+        
     });
 
     afterUpdate(() => {
@@ -165,7 +100,7 @@
                 >
                 <svg class="pointer-events-none" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                 <span class="pointer-events-none w-full text-left">{directory.directory_name}</span>
-                <Tag label={index+1} />
+                <Tag label={directory.image_count} />
             </button>
         {/each}
     </div>
