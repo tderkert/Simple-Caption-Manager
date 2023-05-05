@@ -1,8 +1,12 @@
 <script>
     import { createEventDispatcher } from "svelte";
     import CaptionCard from "/src/components/captionCard.svelte";
+    import { pairsStore } from '/src/lib/store/GlobalStore.js';
     export let pairsData = [];
 
+    pairsStore.subscribe(value => {
+        pairsData = value
+    });
 
 
 </script>

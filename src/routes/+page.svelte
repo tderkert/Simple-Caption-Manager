@@ -2,7 +2,15 @@
 	// Svelte
     import { onMount } from 'svelte';
 	// Store
-	import { directoriesStore, currentDirectoryStore, currentDirectoryIndexStore, currentPairStore } from '/src/lib/store/GlobalStore.js';
+	import { 
+		directoriesStore, 
+		currentDirectoryStore, 
+		currentDirectoryIndexStore, 
+		pairsStore,
+		currentPairStore,
+		currentPairIndexStore 
+	} from '/src/lib/store/GlobalStore.js';
+
 	// Components
 	import Header from "/src/components/header.svelte";
 	import Main from "/src/components/main.svelte";
@@ -12,6 +20,7 @@
 	import Button from '/src/components/button.svelte';
     import CaptionCard from '../components/captionCard.svelte';
 	import Tag from '/src/components/tag.svelte';
+    import ModalDetailedView from '../components/modalDetailedView.svelte';
 
 	// Clear console
 	console.clear()
@@ -40,13 +49,24 @@
 			closeDirectorySelector();
 		}
 	});
-
-	currentPairStore.subscribe(value => {
-		console.log("currentPairStore", value);
+	currentDirectoryIndexStore.subscribe(value => {
+		currentDirectoryIndex = value;
+		console.log("currentDirectoryIndexStore", value);
 	});
 
-	currentDirectoryIndexStore.subscribe(value => {
+	pairsStore.subscribe(value => {
+		pairsData = value;
+	});
+	currentPairStore.subscribe(value => {
+		currentPair = value
 		console.log("currentPairStore", value);
+	});
+	currentPairIndexStore.subscribe(value => {
+		currentPairIndex = value
+		// Update currentPairStore based in index change
+		currentPairStore.set(pairsData[value]);
+
+		console.log("currentPairIndexStore", value);
 	});
 
 
@@ -73,31 +93,12 @@
 		fetch('/image-caption-pairs?directory=' + directory)
 			.then(response => response.json())
 			.then(data => {
-				pairsData = []
-				setTimeout(() => {
-					pairsData = data;
-				}, 500);
+				pairsStore.set(data);
 				console.log(pairsData);
 			})
 
 
-		//////////////////////////////////////////////////
-		//// Detailed View traverse between images ///////
-		//////////////////////////////////////////////////
-
-		// Listen to left/righ key + command key press and traverse between images
 		
-
-		window.addEventListener('keydown', function (event) {
-			if (detailedViewOpen) {
-				event.preventDefault();
-				if (event.key == "ArrowLeft" && event.metaKey) {
-					currentPairPrevious()
-				} else if (event.key == "ArrowRight" && event.metaKey) {
-					currentPairNext()
-				}
-			}
-		});
 
 		// Open directory selector when clicking control key + O
 		window.addEventListener('keydown', function (event) {
@@ -123,24 +124,6 @@
 		directorySelectorOpen = false;
 	}
 
-	///////////////////////////////////////////////////////
-	/////////// Detailed View functionality ///////////////
-	///////////////////////////////////////////////////////
-
-	function currentPairNext() {
-			if (currentPairIndex < pairsData.length - 1) {
-				currentPairIndex++;
-				currentPair = pairsData[currentPairIndex];
-				currentPairStore.set(currentPair);
-			}
-		}
-		function currentPairPrevious() {
-			if (currentPairIndex > 0) {
-				currentPairIndex--;
-				currentPair = pairsData[currentPairIndex];
-				currentPairStore.set(currentPair);
-			}
-		}
 
 	////////////////////////////////////////////////////////	
 	/////////// Search and replace functionality ///////////
@@ -168,13 +151,11 @@
 
 				// Update matches found
 				matchesFound++;
+				console.log("matchesFound", matchesFound);
 			}
 		}
 
-		if(matchesFound > 0){
-			// Update for reactivity
-			pairsData = pairsData
-		}else{
+		if(matchesFound <= 0){
 			alert("No matches found")
 		}
 		
@@ -254,6 +235,8 @@
 			}
 		}
 
+		
+
         fetch('/update-caption', {
             method: 'POST',
             headers: {
@@ -266,6 +249,7 @@
         })
         .then(response => response)
         .then(data => console.log(data))
+		.then(() => pairsStore.set(pairsData))
         .catch(error => console.error(error));
     };
 
@@ -300,8 +284,9 @@
 
 	function handleOpenInModal(event) {
 		console.log("handleOpenInModal", event.detail.pair);
-		currentPair = event.detail.pair;
-		currentPairIndex = event.detail.index;
+
+		currentPairStore.set(event.detail.pair)
+		currentPairIndexStore.set(event.detail.index)
 		detailedViewOpen = true;
 	}
 
@@ -312,7 +297,7 @@
 
 <Header {pairCount} on:openDirectorySelector={handleOpenDirectorySelector}/>
 
-<Main {pairsData} on:saveCaption={handleSaveCaption} on:openInModal={handleOpenInModal}></Main>
+<Main on:saveCaption={handleSaveCaption} on:openInModal={handleOpenInModal}></Main>
 
 <SidePanel 
 	on:searchAndReplace={handleSearchAndReplace} 
@@ -326,11 +311,4 @@
 <!-- MODAL: PATH SELECTOR -->
 <ModalDirectorySelector bind:visible={directorySelectorOpen}/>
 <!-- MODAL: DETAILED VIEW -->
-<Modal bind:visible={detailedViewOpen}>
-	<div class="flex gap-2">
-		<Button on:click={currentPairPrevious}>Previous <Tag label="Cmd + ←" /></Button>
-		<Button on:click={ () => detailedViewOpen = false }>Close</Button>
-		<Button on:click={currentPairNext}>Next <Tag label="Cmd + →" /></Button>
-	</div>
-	<CaptionCard maxContentWidth="false" pair={currentPair} on:saveCaption={handleSaveCaption} />
-</Modal>
+<ModalDetailedView bind:visible={detailedViewOpen} on:saveCaption={handleSaveCaption}/>
