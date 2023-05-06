@@ -8,7 +8,8 @@
 		currentDirectoryIndexStore, 
 		pairsStore,
 		currentPairStore,
-		currentPairIndexStore 
+		currentPairIndexStore,
+		saveCaption 
 	} from '/src/lib/store/GlobalStore.js';
 
 	// Components
@@ -125,41 +126,6 @@
 	}
 
 
-	////////////////////////////////////////////////////////	
-	/////////// Search and replace functionality ///////////
-	////////////////////////////////////////////////////////
-
-	function searchAndReplace(searchInput, replaceInput) {
-		console.log("search and replace", searchInput, replaceInput);
-
-		let matchesFound = 0;
-
-		// loop though pairs data and replace text inside caption_content
-		for (let i = 0; i < pairsData.length; i++) {
-			let pair = pairsData[i];
-			let captionContent = pair.caption_content;
-			
-			// Replace all occurences of searchInput with replaceInput
-			let newCaptionContent = captionContent.replaceAll(searchInput, replaceInput);
-
-			if(captionContent !== newCaptionContent){
-				// Update content in pair
-				pair.caption_content = newCaptionContent;
-
-				// Save caption to database
-				saveCaption(pair)
-
-				// Update matches found
-				matchesFound++;
-				console.log("matchesFound", matchesFound);
-			}
-		}
-
-		if(matchesFound <= 0){
-			alert("No matches found")
-		}
-		
-	}
 
 	///////////////////////////////////////////////////////////
 	/////////// Append to captions functionality //////////////
@@ -218,40 +184,6 @@
 	}
 
 
-	////////////////////////////////////////////////////////
-	/////////////// Save functionality /////////////////////
-	////////////////////////////////////////////////////////
-	function saveCaption(pair) {
-        
-        const caption_path = pair.caption_path;
-        const caption_content = pair.caption_content;
-		const caption_id = pair.id;
-
-		// upate caption content of pair in pairsData with id of caption_id
-		for (let i = 0; i < pairsData.length; i++) {
-			let tempPair = pairsData[i];
-			if (tempPair.id == caption_id) {
-				pairsData[i].caption_content = caption_content;
-			}
-		}
-
-		
-
-        fetch('/update-caption', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ 
-                caption_path,
-                caption_content
-            })
-        })
-        .then(response => response)
-        .then(data => console.log(data))
-		.then(() => pairsStore.set(pairsData))
-        .catch(error => console.error(error));
-    };
 
 
 	////////////////////////////////////////////////////////
