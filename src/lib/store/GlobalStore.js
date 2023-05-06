@@ -17,7 +17,7 @@ pairsStore.subscribe(value => {
 /////////////// Save single pair /////////////////////
 //////////////////////////////////////////////////////
 export const saveCaption = function(pair) {
-    
+    console.log("Global: saveCaption() called");
 
     const caption_path = pair.caption_path;
     const caption_content = pair.caption_content;

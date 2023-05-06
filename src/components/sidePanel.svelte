@@ -1,25 +1,13 @@
 <script>
     import { createEventDispatcher } from "svelte";
     import Button from "/src/components/button.svelte";
-    import InputCheckbox from "/src/components/inputCheckbox.svelte";
 
     // Modules
     import ModuleSearchReplace from "/src/components/moduleSearchReplace.svelte";
+    import ModuleAppendString from "/src/components/moduleAppendString.svelte";
 
     const dispatch = createEventDispatcher();
-    
 
-
-    let appendString = "";
-    let appendplaceholder = "Append...";
-    let appendUseComma = false
-
-    function appendToCaptions(event){
-        dispatch("appendToCaptions", {
-            string: appendString,
-            useComma: appendUseComma
-        });
-    }
 
     function clearAllCaptions(event){
         dispatch("clearAllCaptions", {
@@ -54,18 +42,7 @@
             <h2 class="text-medium">Append to captions</h2>
         </div>
         <!-- CONTENT -->
-        <div class="p-4 flex flex-col gap-4 items-stretch">
-            <!-- Search and Replace -->
-            <form class="flex flex-col gap-4 items-stretch">
-                <label class="sr-only" for="appendString">Find:</label>
-                <input bind:value="{appendString}" class="px-3 py-2 rounded-xl bg-slate-900 ring-blue-500 focus:ring-2 transition placeholder-white placeholder-opacity-40" type="text" id="searchInput" placeholder={appendplaceholder}>
-                
-                
-                <InputCheckbox bind:value={appendUseComma} label="Separate with comma"/>
-
-                <Button on:click={ appendToCaptions }>Append</Button>
-            </form>
-        </div>
+        <ModuleAppendString />
     </div>
     <!-- END CONTAINER -->
 

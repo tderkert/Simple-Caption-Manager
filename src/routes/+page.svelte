@@ -127,28 +127,6 @@
 
 
 
-	///////////////////////////////////////////////////////////
-	/////////// Append to captions functionality //////////////
-	///////////////////////////////////////////////////////////
-	
-	function appendToCaptions(string, useComma) {
-		for (let i = 0; i < pairsData.length; i++) {
-			let pair = pairsData[i];
-			let captionContent = pair.caption_content;
-			let newCaptionContent
-			// TODO: Figure out why a comma is added if the caption is empty
-			if (captionContent == "") {
-				newCaptionContent = "" + string;
-			}else if (useComma) {
-				
-				newCaptionContent = captionContent + ", " + string;
-			} else {
-				newCaptionContent = captionContent + " " + string;
-			}
-			pair.caption_content = newCaptionContent.replaceAll("\n", "");
-			saveCaption(pair)
-		}
-	}
 
 	////////////////////////////////////////////////////////
 	/////////////// Clear all captions /////////////////////
