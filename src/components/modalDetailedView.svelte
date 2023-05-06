@@ -69,8 +69,6 @@
 		<Button >Previous <Tag label="Cmd + ←" /></Button>
 		<Button on:click={ () => visible = false }>Close</Button>
 		<Button >Next <Tag label="Cmd + →" /></Button>
-				<Button on:click={currentPairPrevious}>Previous <Tag label="Cmd + ←" /></Button>
-				<Button on:click={currentPairNext}>Next <Tag label="Cmd + →" /></Button>
 	</div>
 	<CaptionCard maxContentWidth="false" {pair} {index} on:saveCaption on:openInModal/>
 </Modal>
