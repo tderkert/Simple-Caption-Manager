@@ -140,14 +140,6 @@ app.get('/directories', (req, res) => {
       image_count: fs.readdirSync(path.join(dataRootPath, directory)).filter(file => /\.(jpe?g|png|gif)$/i.test(file)).length,
     }));
   res.json(directories);
-
-  // const directories = fs.readdirSync(dataRootPath)
-  //   .filter(file => fs.statSync(path.join(dataRootPath, file)).isDirectory())
-  //   .map(directory => ({
-  //     directory_path: path.join(dataRootPath, directory),
-  //     directory_name: directory
-  //   }));
-  // res.json(directories);
 });
 
 // Endpoint to set captions based on filename
