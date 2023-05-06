@@ -66,9 +66,9 @@
 <!-- svelte-ignore missing-declaration -->
 <Modal bind:visible={visible}>
 	<div class="flex gap-2">
-		<Button >Previous <Tag label="Cmd + ←" /></Button>
-		<Button on:click={ () => visible = false }>Close</Button>
-		<Button >Next <Tag label="Cmd + →" /></Button>
+		<Button on:click={currentPairPrevious}>Previous <Tag label="Cmd + ←" /></Button>
+		<Button variant="secondary" on:click={ () => visible = false }>Close</Button>
+		<Button on:click={currentPairNext}>Next <Tag label="Cmd + →" /></Button>
 	</div>
 	<CaptionCard maxContentWidth="false" {pair} {index} on:saveCaption on:openInModal/>
 </Modal>
