@@ -1,6 +1,7 @@
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
+import ExifReader from 'exifreader';
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -85,7 +86,9 @@ function createImageCaptionPairsData(directory) {
     .map(imageFile => ({  
       image_path:   path.join(directory, imageFile),
       caption_path: path.join(directory, `${imageFile.split('.')[0]}.txt`),
-      id: uuidv4()
+      id: uuidv4(),
+      // exif data of image
+      exif: ExifReader.load(fs.readFileSync(path.join(directory, imageFile)))
     })); 
   
   // Get caption content
