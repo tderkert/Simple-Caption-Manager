@@ -57,9 +57,9 @@ export const saveCaption = function(pair) {
 export const appendToCaptions = function (appendString, appendUseComma) {
     for (let i = 0; i < pairsData.length; i++) {
         let pair = pairsData[i];
-        let captionContent = pair.caption_content;
-        let newCaptionContent
-        // TODO: Figure out why a comma is added if the caption is empty
+        let captionContent = pair.caption_content.replaceAll("\n", ""); // Remove all newlines to check if caption is empty
+        let newCaptionContent = "";
+
         if (captionContent == "") {
             newCaptionContent = "" + appendString;
         }else if (appendUseComma) {
@@ -68,6 +68,7 @@ export const appendToCaptions = function (appendString, appendUseComma) {
         } else {
             newCaptionContent = captionContent + " " + appendString;
         }
+        
         pair.caption_content = newCaptionContent.replaceAll("\n", "");
         saveCaption(pair)
     }
@@ -93,7 +94,7 @@ export const searchAndReplace = function(searchInput, replaceInput) {
         if(captionContent !== newCaptionContent){
             // Update content in pair
             pair.caption_content = newCaptionContent;
-            saveCaption(pair)
+            
 
 
             // Update matches found
