@@ -50,4 +50,62 @@ export const saveCaption = function(pair) {
 };
 
 
+///////////////////////////////////////////////////////////
+/////////// Append to captions functionality //////////////
+///////////////////////////////////////////////////////////
 
+export const appendToCaptions = function (appendString, appendUseComma) {
+    for (let i = 0; i < pairsData.length; i++) {
+        let pair = pairsData[i];
+        let captionContent = pair.caption_content;
+        let newCaptionContent
+        // TODO: Figure out why a comma is added if the caption is empty
+        if (captionContent == "") {
+            newCaptionContent = "" + appendString;
+        }else if (appendUseComma) {
+            
+            newCaptionContent = captionContent + ", " + appendString;
+        } else {
+            newCaptionContent = captionContent + " " + appendString;
+        }
+        pair.caption_content = newCaptionContent.replaceAll("\n", "");
+        saveCaption(pair)
+    }
+}
+
+////////////////////////////////////////////////////////	
+/////////// Search and replace functionality ///////////
+////////////////////////////////////////////////////////
+
+export const searchAndReplace = function(searchInput, replaceInput) {
+    console.log("search and replace", searchInput, replaceInput);
+
+    let matchesFound = 0;
+
+    // loop though pairs data and replace text inside caption_content
+    for (let i = 0; i < pairsData.length; i++) {
+        let pair = pairsData[i];
+        let captionContent = pair.caption_content;
+        
+        // Replace all occurences of searchInput with replaceInput
+        let newCaptionContent = captionContent.replaceAll(searchInput, replaceInput);
+
+        if(captionContent !== newCaptionContent){
+            // Update content in pair
+            pair.caption_content = newCaptionContent;
+            saveCaption(pair)
+
+
+            // Update matches found
+            matchesFound++;
+            console.log("matchesFound", matchesFound);
+        }
+    }
+    pairsStore.set(pairsData);
+    if(matchesFound <= 0){
+        alert("No matches found")
+    }else{
+        
+    }
+    
+}

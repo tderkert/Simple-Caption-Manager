@@ -1,7 +1,7 @@
 <script>
     import InputCheckbox from "/src/components/inputCheckbox.svelte";
     import Button from "/src/components/button.svelte";
-    import { pairsStore, saveCaption } from '/src/lib/store/GlobalStore.js';
+    import { pairsStore, appendToCaptions } from '/src/lib/store/GlobalStore.js';
 
     let pairsData = [];
 
@@ -13,28 +13,9 @@
         pairsData = value;
     });
 
-    ///////////////////////////////////////////////////////////
-	/////////// Append to captions functionality //////////////
-	///////////////////////////////////////////////////////////
-	
-	function appendToCaptions() {
-		for (let i = 0; i < pairsData.length; i++) {
-			let pair = pairsData[i];
-			let captionContent = pair.caption_content;
-			let newCaptionContent
-			// TODO: Figure out why a comma is added if the caption is empty
-			if (captionContent == "") {
-				newCaptionContent = "" + appendString;
-			}else if (appendUseComma) {
-				
-				newCaptionContent = captionContent + ", " + appendString;
-			} else {
-				newCaptionContent = captionContent + " " + appendString;
-			}
-			pair.caption_content = newCaptionContent.replaceAll("\n", "");
-			saveCaption(pair)
-		}
-	}
+    function handleAppendToCaptions(){
+        appendToCaptions(appendString, appendUseComma)
+    }
 </script>
 <div class="p-4 flex flex-col gap-4 items-stretch">
     <!-- Search and Replace -->
@@ -45,6 +26,6 @@
         
         <InputCheckbox bind:value={appendUseComma} label="Separate with comma"/>
 
-        <Button on:click={ appendToCaptions }>Append</Button>
+        <Button on:click={ handleAppendToCaptions }>Append</Button>
     </form>
 </div>
