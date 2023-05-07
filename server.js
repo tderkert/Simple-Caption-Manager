@@ -3,8 +3,9 @@ import fs from 'fs';
 import path from 'path';
 import ExifReader from 'exifreader';
 import { v4 as uuidv4 } from 'uuid';
+import multer from 'multer'
 
-
+// Setup express
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded());
@@ -14,6 +15,52 @@ const dataRootPath = './data';
 
 // Frontend path to data
 const dataRootPathFrontend = dataRootPath.substring(1);
+
+
+// Multer storage
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    const directory = req.body.directory_path;
+    cb(null, directory);
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+});
+
+
+// Multer upload
+const upload = multer({ storage: storage });
+
+// Multer upload function
+
+function uploadFiles(req, res, next) {
+  let numFiles = req.files.length;
+  let uploadedFiles = [];
+
+  req.files.forEach(function (file) {
+    // Do something with each file, like moving it to a custom directory
+    // and pushing its new path to the `uploadedFiles` array.
+    // You can also handle any errors that occur during the upload process.
+
+    uploadedFiles.push(file.path);
+    numFiles--;
+
+    // Log upload progress
+    console.log(`${numFiles+1} files left to upload.`);
+    console.log(`File uploaded: ${file.path}`);
+
+    if (numFiles === 0) {
+      // All files have been uploaded, so call the next middleware function
+      // or route handler, passing along any relevant data or results.
+
+      req.uploadedFiles = uploadedFiles;
+      console.log("all files uploaded")
+      next();
+    }
+  });
+}
+
 
 ////////////////////////////////////////
 ///// Create missing caption files /////
@@ -160,6 +207,30 @@ app.get('/add-filenames-to-captions?:directory', (req, res) => {
 
   // Send image caption pairs
   res.json(imageCaptionPairs);
+});
+
+
+// Endpoint to upload files to a directory
+app.post('/save-files',upload.array('files'), uploadFiles, (req, res, next) => {
+  // Console uploaded files
+  console.log("req.uploadedFiles:", req.uploadedFiles)
+
+  // Get directory path
+  let directoryPath = req.body.directory_path
+  console.log("upload path:", directoryPath)
+
+  // Create missing caption files
+  createMissingCaptionFiles(directoryPath)
+  
+  // Create new data
+  let newPairsData = createImageCaptionPairsData(directoryPath)
+
+  // Respons status ok
+  res.status(200);
+
+  // Respons with new data including new files
+  res.json(newPairsData);
+  
 });
 
 

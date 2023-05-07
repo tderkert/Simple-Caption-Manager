@@ -116,4 +116,42 @@ export const searchAndReplace = function(searchInput, replaceInput) {
 
 export let saveFiles = function(files, directory) {
     console.log("Global: saveFiles() called", files, directory);
+    const formData = new FormData();
+
+    //Add directory for form data
+    formData.append('directory_path', directory);
+
+    //Add files for form data
+    for (let i = 0; i < files.length; i++) {
+        formData.append('files', files[i]);
+    }
+
+    
+
+    // Post
+    fetch('/save-files', {
+        method: 'POST',
+        body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('File upload successful');
+
+                // log response json data
+                // Will be new pairs data to update the frontend data
+                response.json().then(data => {
+                    console.log(data);
+                    pairsStore.set(data);
+                });
+            } else {
+                console.log('File upload failed');
+            }
+        })
+
+        
+        .catch(error => {
+        console.log('Error uploading file:', error);
+    });
+
+
 }

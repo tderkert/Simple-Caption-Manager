@@ -10,7 +10,7 @@
 
     let docDragOver = false
     let zoneDragOver = false
-    $: docDragOverClass = docDragOver ? "bg-opacity-60" : "bg-opacity-0 opacity-0";
+    $: docDragOverClass = docDragOver ? "bg-opacity-60" : "bg-opacity-0 opacity-0 hidden";
     $: zoneDragOverClass = zoneDragOver ? "bg-opacity-100" : "";
 
 
