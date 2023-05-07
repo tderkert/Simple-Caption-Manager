@@ -109,3 +109,11 @@ export const searchAndReplace = function(searchInput, replaceInput) {
     }
     
 }
+
+//////////////////////////////////////////////
+/////////////// Save files ///////////////////
+//////////////////////////////////////////////
+
+export let saveFiles = function(files, directory) {
+    console.log("Global: saveFiles() called", files, directory);
+}
