@@ -68,7 +68,6 @@ export const appendToCaptions = function (appendString, appendUseComma) {
         } else {
             newCaptionContent = captionContent + " " + appendString;
         }
-        
         pair.caption_content = newCaptionContent.replaceAll("\n", "");
         saveCaption(pair)
     }
@@ -94,7 +93,7 @@ export const searchAndReplace = function(searchInput, replaceInput) {
         if(captionContent !== newCaptionContent){
             // Update content in pair
             pair.caption_content = newCaptionContent;
-            
+            saveCaption(pair);
 
 
             // Update matches found
