@@ -1,5 +1,6 @@
 <script>
     import InputCheckbox from "/src/components/inputCheckbox.svelte";
+    import InputText from "/src/components/inputText.svelte";
     import Button from "/src/components/button.svelte";
     import { pairsStore, appendToCaptions } from '/src/lib/store/GlobalStore.js';
 
@@ -21,8 +22,7 @@
     <!-- Search and Replace -->
     <form class="flex flex-col gap-4 items-stretch">
         <label class="sr-only" for="appendString">Find:</label>
-        <input bind:value="{appendString}" class="px-3 py-2 rounded-xl bg-slate-900 ring-blue-500 focus:ring-2 transition placeholder-white placeholder-opacity-40" type="text" id="searchInput" placeholder={appendplaceholder}>
-        
+        <InputText bind:value={appendString} placeholder={appendplaceholder} id="appendString"/>
         
         <InputCheckbox bind:value={appendUseComma} label="Separate with comma"/>
 
