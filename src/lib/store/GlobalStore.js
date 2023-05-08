@@ -14,6 +14,23 @@ pairsStore.subscribe(value => {
 });
 
 //////////////////////////////////////////////////////
+/////////////// Get directories //////////////////////
+//////////////////////////////////////////////////////
+export const getDirectories = function() {
+    console.log("Global: getDirectories() called");
+
+    // Fetch directories json file from server at the '/directories' endpoint
+		fetch('/directories')
+        .then(response => response.json())
+        .then(data => {
+            directoriesStore.set(data);
+        })
+        .catch(error => console.error(error));
+};
+
+
+
+//////////////////////////////////////////////////////
 /////////////// Save single pair /////////////////////
 //////////////////////////////////////////////////////
 export const saveCaption = function(pair) {
@@ -48,6 +65,32 @@ export const saveCaption = function(pair) {
     .then(() => pairsStore.set(pairsData))
     .catch(error => console.error(error));
 };
+
+//////////////////////////////////////////////////////
+// Create new directory and add to directoriesStore //
+//////////////////////////////////////////////////////
+export const createDirectory = function(directoryName) {
+    console.log("Global: createDirectory() called", directoryName);
+
+    fetch('/create-directory', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            directory_name: directoryName
+        })
+    })
+    // if response ok, update directoriesStore
+    .then(response => {
+        console.log("response", response);
+        if (response.ok) {
+            getDirectories();
+        }
+    })
+
+};
+
 
 
 ///////////////////////////////////////////////////////////

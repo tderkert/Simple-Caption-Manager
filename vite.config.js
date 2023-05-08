@@ -12,7 +12,8 @@ export default defineConfig({
 			'/update-caption': 'http://localhost:3000',
 			'/directories': 'http://localhost:3000',
 			'/add-filenames-to-captions': 'http://localhost:3000',
-			'/save-files': 'http://localhost:3000'
+			'/save-files': 'http://localhost:3000',
+			'/create-directory': 'http://localhost:3000',
 		}
 	}
 });

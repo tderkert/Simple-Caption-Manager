@@ -17,6 +17,7 @@ A simple web UI to write, modify and manage image caption files. Helpful when wr
 
 ## Features
 * Drag and drop image files into the main view to add them
+* Create new directory
 * Search and replace
 * Append to captions
 * Use filenames as captions

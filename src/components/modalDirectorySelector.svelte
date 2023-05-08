@@ -1,10 +1,11 @@
 <script>
-    import { directoriesStore, currentDirectoryStore, currentDirectoryIndexStore } from '/src/lib/store/GlobalStore.js';
+    import { directoriesStore, currentDirectoryStore, currentDirectoryIndexStore, createDirectory, getDirectories } from '/src/lib/store/GlobalStore.js';
     import { fly, fade } from 'svelte/transition';
     import { cubicOut } from 'svelte/easing';
     import Modal from '/src/components/modal.svelte';
     import { afterUpdate, onMount } from 'svelte';
     import Tag from '/src/components/tag.svelte';
+    import Button from '/src/components/button.svelte';
 
     export let visible = true;
     
@@ -42,10 +43,16 @@
     function handleDirectoryClick(event) {
         currentDirectoryStore.set(event.target.dataset.path);
         // index is not a number, turn it into a number
-
         
         let indexAsNumber = Number(event.target.dataset.index);
         currentDirectoryIndexStore.set(indexAsNumber);
+    }
+
+    // Handle create new directory button click
+    function handleCreateNewDirectoryClick() {
+        let newDirectoryName = window.prompt("Name of new directory");
+        if(newDirectoryName === null) return;
+        createDirectory(newDirectoryName)
     }
 
     onMount(() => {
@@ -103,6 +110,7 @@
                 <Tag label={directory.image_count} />
             </button>
         {/each}
+        <Button on:click={handleCreateNewDirectoryClick}>Create new directory</Button>
     </div>
 </Modal>
 

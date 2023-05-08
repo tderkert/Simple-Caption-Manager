@@ -234,6 +234,26 @@ app.post('/save-files',upload.array('files'), uploadFiles, (req, res, next) => {
 });
 
 
+// Endpoint to create a new directory in dataRootPath
+app.post('/create-directory', (req, res) => {
+
+  // Get directory name
+  let directoryName = req.body.directory_name
+
+  // Create directory if it doesnt already exist
+  if (!fs.existsSync(path.join(dataRootPath, directoryName))){
+    fs.mkdirSync(path.join(dataRootPath, directoryName));
+    console.log(`Directory ${directoryName} created.`);
+  } else {
+    console.log(`Directory ${directoryName} already exists.`);
+  }
+  
+  // Respons status ok
+  res.status(200);
+  res.json({directory_name: directoryName});
+});
+
+
 // Enable serving image files in directoryPath directory
 app.use(dataRootPathFrontend, express.static(dataRootPath))
 console.log(dataRootPath)
