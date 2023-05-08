@@ -16,6 +16,7 @@ A simple web UI to write, modify and manage image caption files. Helpful when wr
 * Traverse between images when in focus mode: `Cmd` + `Left/Right`.
 
 ## Features
+* Drag and drop image files into the main view to add them
 * Search and replace
 * Append to captions
 * Use filenames as captions
