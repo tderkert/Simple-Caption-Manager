@@ -26,3 +26,11 @@ A simple web UI to write, modify and manage image caption files. Helpful when wr
 ## How to get running
 1. Run `npm install` to install dependencies.
 2. Run `npm run dev` in terminal, and open `http://localhost:5173/` in your browser.
+
+## Disclaimers
+This project was created with a lot of help from ChatGPT and Copilot. I'm hobby developer creating a tool for myself, and hopefully other people can find it useful. Let me know if you find bugs, or want to suggest improvements and features.
+
+## Main libraries used
+* SvelteKit
+* Express
+* Multer
