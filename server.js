@@ -1,9 +1,11 @@
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
+import { exec } from 'child_process';
 import ExifReader from 'exifreader';
 import { v4 as uuidv4 } from 'uuid';
 import multer from 'multer'
+import { Console } from 'console';
 
 // Setup express
 const app = express();
@@ -254,6 +256,38 @@ app.post('/create-directory', (req, res) => {
 });
 
 
+// Express route handler for opening the current directory in Finder
+app.post('/open-folder', (req, res) => {
+  console.log("req.body:", req.body)
+
+  // Get the path from the request
+  const currentDir = req.body.directory_path;
+
+  // Get relative path of current directory
+
+  // Get absolute path of current directory
+  const absolutePath = path.resolve( currentDir );
+  console.log("absolutePath:", absolutePath)
+
+  // Get escaped absolute path of current directory
+  const escapedAbsolutePath = absolutePath.replace(/(\s+)/g, '\\$1');
+  console.log("escapedAbsolutePath:", escapedAbsolutePath)
+  
+  // Use the `open` command to open the directory in Finder
+  exec(`open ${escapedAbsolutePath}`, (err) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Failed to open folder in Finder');
+      return;
+    }
+    
+    // Send a success response if the command executed successfully
+    res.status(200).send('Folder opened in Finder');
+  });
+
+});
+
+
 // Enable serving image files in directoryPath directory
 app.use(dataRootPathFrontend, express.static(dataRootPath))
 console.log(dataRootPath)
@@ -266,3 +300,4 @@ console.log(dataRootPath)
 app.listen(3000, () => {
   console.log('Server listening on port 3000');
 });
+

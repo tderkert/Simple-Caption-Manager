@@ -3,7 +3,7 @@
     
     $: variantClasses = `
         ${variant == "primary" ? "bg-blue-600 text-white hover:bg-blue-700" : ""}
-        ${variant == "secondary" ? "bg-white bg-opacity-20 text-white hover:bg-opacity-30" : ""}
+        ${variant == "secondary" ? "bg-white bg-opacity-10 text-white hover:bg-opacity-20" : ""}
     `
 </script>
 

@@ -8,9 +8,14 @@ export const currentPairStore = writable({});
 export const currentPairIndexStore = writable(0);
 
 let pairsData = [];
+let currentDirectory = "";
 
+// Subscribe to stores for global function access
 pairsStore.subscribe(value => {
     pairsData = value;
+});
+currentDirectoryStore.subscribe(value => {
+    currentDirectory = value;
 });
 
 //////////////////////////////////////////////////////
@@ -196,5 +201,29 @@ export let saveFiles = function(files, directory) {
         console.log('Error uploading file:', error);
     });
 
+
+}
+
+
+////////////////////////////////////////////////////////
+//////////// Open current directory in OS //////////////
+////////////////////////////////////////////////////////
+
+export const openFolderInOS = function() {
+    console.log("Global: openFolderInOS() called");
+
+    // Post to endpoint '/open-folder' with current directory
+    fetch('/open-folder', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            directory_path: currentDirectory
+        })
+    })
+    .then(response => {
+        console.log(response);
+    })
 
 }
