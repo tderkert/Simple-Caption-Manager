@@ -10,11 +10,6 @@ A simple web UI to write, modify and manage image caption files. Helpful when wr
 * When captions are edited it updates the caption files instantly without asking to save anything (be careful).
 * Click on images to view in bigger size; focus mode.
 
-## Shortcuts
-* Open directory selecter:  `Ctrl` + `O`.
-  * Navigate in directory list `Up/Down`, press `Enter` to select.
-* Traverse between images when in focus mode: `Cmd` + `Left/Right`.
-
 ## Features
 * Drag and drop image files into the main view to add them
 * Create new directory
@@ -22,6 +17,11 @@ A simple web UI to write, modify and manage image caption files. Helpful when wr
 * Append to captions
 * Use filenames as captions
 * Clear captions
+
+## Shortcuts
+* Open directory selecter:  `Ctrl` + `O`.
+  * Navigate in directory list `Up/Down`, press `Enter` to select.
+* Traverse between images when in focus mode: `Cmd` + `Left/Right`.
 
 ## How to get running
 1. Run `npm install` to install dependencies.
