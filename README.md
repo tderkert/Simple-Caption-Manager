@@ -33,4 +33,5 @@ This project was created with a lot of help from ChatGPT and Copilot. I'm hobby 
 ## Main libraries used
 * SvelteKit
 * Express
+* Tailwind CSS
 * Multer
