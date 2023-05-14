@@ -43,6 +43,7 @@
 
     // Typing input reset
     function typingInputReset(){
+        console.log("typingInputReset")
         typingInput = ''
     }
 
@@ -92,8 +93,12 @@
                     }
                 }
 
-                // Set a timeout to reset the typing input
-                typingInputTimeout = setTimeout(typingInputReset, 1000)
+                // Clear the timeout if it has already been set.
+                if (typingInputTimeout) {
+                    clearTimeout(typingInputTimeout);
+                }
+                // Set a new timeout to reset the typing input
+                typingInputTimeout = setTimeout(typingInputReset, 600)
             }
         });
 
