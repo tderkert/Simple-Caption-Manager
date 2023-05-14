@@ -21,6 +21,7 @@ A simple web UI to write, modify and manage image caption files. Helpful when wr
 ## Shortcuts
 * Open directory selecter:  `Ctrl` + `O`.
   * Navigate in directory list `Up/Down`, press `Enter` to select.
+  * Quickly select a directory by strating to type its title.
 * Traverse between images when in focus mode: `Cmd` + `Left/Right`.
 
 ## How to get running

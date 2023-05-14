@@ -14,6 +14,8 @@
     let directories = [];
     let currentDirectory = "";
     let currentDirectoryIndex = 0
+    let typingInput = ''
+    let typingInputTimeout = null
 
     // Subscribe to Directories Store
     directoriesStore.subscribe(value => {
@@ -37,6 +39,11 @@
     let fadeProps = {
         duration: 200,
         easing: cubicOut
+    }
+
+    // Typing input reset
+    function typingInputReset(){
+        typingInput = ''
     }
 
     // Update selected directory
@@ -65,12 +72,28 @@
                     currentDirectoryIndexStore.set(currentDirectoryIndex - 1);
                     updateFocus()
                 }
-            }
-            if (event.key === 'ArrowDown' && visible === true) {
+            }else if (event.key === 'ArrowDown' && visible === true) {
                 if (currentDirectoryIndex < directories.length - 1) {
                     currentDirectoryIndexStore.set(currentDirectoryIndex + 1);
                     updateFocus()
                 }
+            }else{
+                // Get the pressed key as a lowercase string
+                const key = event.key.toLowerCase();
+                typingInput += key
+                
+                
+                for (let i = 0; i < directories.length; i++) {
+                    const directory = directories[i];
+                    if (directory.directory_name.toLowerCase().startsWith(typingInput)) {
+                        currentDirectoryIndexStore.set(i);
+                        updateFocus()
+                        break;
+                    }
+                }
+
+                // Set a timeout to reset the typing input
+                typingInputTimeout = setTimeout(typingInputReset, 1000)
             }
         });
 
