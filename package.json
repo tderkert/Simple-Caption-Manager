@@ -3,11 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-<<<<<<< HEAD
-    "dev": "vite dev & node server.js",
-=======
     "dev": "concurrently \"npm run dev-vite\" \"npm run dev-node\"",
->>>>>>> make-it-run-on-windows
     "build": "vite build",
     "preview": "vite preview & node server.js",
     "dev-vite": "vite dev",
