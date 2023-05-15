@@ -275,7 +275,8 @@ app.post('/open-folder', (req, res) => {
   
   // Use the `open` command to open the directory in Finder
   if (os.platform() === 'darwin') {
-    exec(`open "${escapedAbsolutePath}"`, (err) => {
+    console.log('mac open folder')
+    exec(`open ${escapedAbsolutePath}`, (err) => {
       if (err) {
         console.error(err);
         res.status(500).send('Failed to open folder');
