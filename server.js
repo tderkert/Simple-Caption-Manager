@@ -1,11 +1,11 @@
 import express from 'express';
+import os from 'os';
 import fs from 'fs';
 import path from 'path';
 import { exec } from 'child_process';
 import ExifReader from 'exifreader';
 import { v4 as uuidv4 } from 'uuid';
 import multer from 'multer'
-import { Console } from 'console';
 
 // Setup express
 const app = express();
@@ -274,16 +274,33 @@ app.post('/open-folder', (req, res) => {
   console.log("escapedAbsolutePath:", escapedAbsolutePath)
   
   // Use the `open` command to open the directory in Finder
-  exec(`open ${escapedAbsolutePath}`, (err) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Failed to open folder in Finder');
-      return;
-    }
-    
-    // Send a success response if the command executed successfully
-    res.status(200).send('Folder opened in Finder');
-  });
+  if (os.platform() === 'darwin') {
+    exec(`open "${escapedAbsolutePath}"`, (err) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Failed to open folder');
+        return;
+      }
+  
+      // Send a success response if the command executed successfully
+      res.status(200).send('Folder opened');
+    });
+  } else if (os.platform() === 'win32') {
+    let command = `explorer /select, "${escapedAbsolutePath}"`
+    console.log('windows open folder', command)
+    exec(command, (err) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Failed to open folder');
+        return;
+      }
+  
+      // Send a success response if the command executed successfully
+      res.status(200).send('Folder opened');
+    });
+  } else {
+    res.status(500).send('Unsupported platform');
+  }
 
 });
 
