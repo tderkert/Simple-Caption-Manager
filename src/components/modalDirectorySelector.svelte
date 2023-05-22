@@ -124,8 +124,8 @@
 <Modal bind:visible={visible}>
 
     <!-- Card Element -->
-    <div transition:fly={flyProps} class="flex flex-col gap-2 p-3 rounded-xl bg-slate-800 min-w-[400px]">
-        <h2 role="dialog" aria-modal="true" class="px-4 py-2 pt-2 opacity-50">Choose a directory to work on:</h2>
+    <div transition:fly={flyProps} class="flex flex-col gap-2 p-3 rounded-xl bg-slate-800 min-w-[400px] max-w-[460px]">
+        <h2 role="dialog" aria-modal="true" class="px-4 py-2 pt-2 opacity-50 text-xl">Choose a directory to work on:</h2>
         {#each directories as directory, index}
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <button id="directory-{index+1}" on:click|preventDefault={handleDirectoryClick} data-path="{directory.directory_path}" data-index="{index}" 
@@ -138,6 +138,9 @@
                 <Tag label={directory.image_count} />
             </button>
         {/each}
+        <p class="text-white text-opacity-60 text-center leading-8 p-6">
+            <span class="text-white font-medium">Tip:</span> Use <Tag label="Up"/> and <Tag label="Down"/> keys to navigate through the directories, or just start typing the name of the directory. Press <Tag label="Enter"></Tag> to select the directory.
+        </p>
         <Button on:click={handleCreateNewDirectoryClick}>Create new directory</Button>
     </div>
 </Modal>
