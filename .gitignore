@@ -9,5 +9,7 @@ node_modules
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-# ignore all directories in '/data'
+# ignore all files and directories in '/data' except help file
 data/*/
+data/**/*
+!data/Help - Put Image Folder Here.txt
