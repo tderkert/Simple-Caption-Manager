@@ -16,8 +16,8 @@
 
 
 <div class="p-4 flex flex-col gap-4 items-stretch">
-    <!-- Clean Captions -->
+    <!-- Tidy Captions -->
     <form class="flex flex-col gap-4 items-stretch">
-        <Button on:click={ handleCleanCaptions }> Clean Captions</Button>
+        <Button on:click={ handleCleanCaptions }> Tidy Captions</Button>
     </form>
 </div>
