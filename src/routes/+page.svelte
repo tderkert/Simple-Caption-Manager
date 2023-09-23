@@ -2,14 +2,14 @@
 	// Svelte
     import { onMount } from 'svelte';
 	// Store
-	import { 
-		directoriesStore, 
-		currentDirectoryStore, 
-		currentDirectoryIndexStore, 
+	import {
+		directoriesStore,
+		currentDirectoryStore,
+		currentDirectoryIndexStore,
 		pairsStore,
 		currentPairStore,
 		currentPairIndexStore,
-		saveCaption 
+		saveCaption
 	} from '/src/lib/store/GlobalStore.js';
 
 	// Components
@@ -99,7 +99,7 @@
 			})
 
 
-		
+
 
 		// Open directory selector when clicking control key + O
 		window.addEventListener('keydown', function (event) {
@@ -131,7 +131,7 @@
 	////////////////////////////////////////////////////////
 	/////////////// Clear all captions /////////////////////
 	////////////////////////////////////////////////////////
-	
+
 	function clearAllCaptions() {
 		let confirmClear = confirm("Are you sure you want to clear all captions in this directory?");
 		if (confirmClear) {
@@ -172,6 +172,9 @@
 		let replaceInput = event.detail.replaceInput;
 		searchAndReplace(searchInput, replaceInput);
 	}
+	function handleCleanCaption(event) {
+		cleanCaption();
+	}
 
 	function handleAppendToCaptions(event) {
 		let string = event.detail.string;
@@ -186,7 +189,7 @@
 	}
 
 
-	
+
 	function handleOpenDirectorySelector(event) {
 		console.log("handleOpenDirectorySelector");
 		openDirectorySelector()
@@ -200,7 +203,7 @@
 		detailedViewOpen = true;
 	}
 
-	
+
 
 </script>
 
@@ -209,8 +212,9 @@
 
 <Main on:saveCaption={handleSaveCaption} on:openInModal={handleOpenInModal}></Main>
 
-<SidePanel 
-	on:searchAndReplace={handleSearchAndReplace} 
+<SidePanel
+	on:searchAndReplace={handleSearchAndReplace}
+	on:cleanCaptions={handleCleanCaption}
 	on:clearAllCaptions={clearAllCaptions}
 	on:appendToCaptions={handleAppendToCaptions}
 	on:addFilenamesToCaptions={addFilenamesToCaptions}
