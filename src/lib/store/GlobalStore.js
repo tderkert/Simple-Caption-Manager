@@ -181,8 +181,10 @@ export const cleanCaptions = function() {
                 newCaptions.push(caption);
             }
         }
+        
+        // Reconnect caption with commas
+        pair.caption_content = `${newCaptions.join(", ")}`;
 
-        pair.caption_content = `${newCaptions.join(", ")},`;
 
         console.log("new captions: ", pair.caption_content);
 
