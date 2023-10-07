@@ -185,6 +185,8 @@ export const cleanCaptions = function() {
         // Reconnect caption with commas
         pair.caption_content = `${newCaptions.join(", ")}`;
 
+        // Remove multiple spaces
+        pair.caption_content = pair.caption_content.replace(/\s\s+/g, ' ');
 
         console.log("new captions: ", pair.caption_content);
 
