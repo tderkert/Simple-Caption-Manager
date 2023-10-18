@@ -53,14 +53,14 @@ export const saveCaption = function(pair) {
         }
     }
 
-    
+
 
     fetch('/update-caption', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
             caption_path,
             caption_content
         })
@@ -111,7 +111,7 @@ export const appendToCaptions = function (appendString, appendUseComma) {
         if (captionContent == "") {
             newCaptionContent = "" + appendString;
         }else if (appendUseComma) {
-            
+
             newCaptionContent = captionContent + ", " + appendString;
         } else {
             newCaptionContent = captionContent + " " + appendString;
@@ -121,7 +121,7 @@ export const appendToCaptions = function (appendString, appendUseComma) {
     }
 }
 
-////////////////////////////////////////////////////////	
+////////////////////////////////////////////////////////
 /////////// Search and replace functionality ///////////
 ////////////////////////////////////////////////////////
 
@@ -134,7 +134,7 @@ export const searchAndReplace = function(searchInput, replaceInput) {
     for (let i = 0; i < pairsData.length; i++) {
         let pair = pairsData[i];
         let captionContent = pair.caption_content;
-        
+
         // Replace all occurences of searchInput with replaceInput
         let newCaptionContent = captionContent.replaceAll(searchInput, replaceInput);
 
@@ -152,10 +152,49 @@ export const searchAndReplace = function(searchInput, replaceInput) {
     pairsStore.set(pairsData);
     if(matchesFound <= 0){
         alert("No matches found")
-    }else{
+    }// else {}
+
+}
+
+////////////////////////////////////////////////////////
+//////////////////// Clean Captions ////////////////////
+////////////////////////////////////////////////////////
+
+export const cleanCaptions = function() {
+    console.log("clean captions");
+
+    for (const pair of pairsData) {
+        const captionContent = pair.caption_content;
+        const oldCaptions = captionContent.split(",")
+
+        if (oldCaptions.length < 1) {
+            continue;
+        }
+
+        const newCaptions = [];
+
+        console.log("old captions: ", captionContent);
+
+        for (let caption of oldCaptions) {
+            caption = caption.trim()
+            if (caption != "") {
+                newCaptions.push(caption);
+            }
+        }
         
+        // Reconnect caption with commas
+        pair.caption_content = `${newCaptions.join(", ")}`;
+
+        // Remove multiple spaces
+        pair.caption_content = pair.caption_content.replace(/\s\s+/g, ' ');
+
+        console.log("new captions: ", pair.caption_content);
+
+        saveCaption(pair);
     }
-    
+
+    pairsStore.set(pairsData);
+
 }
 
 //////////////////////////////////////////////
@@ -174,7 +213,7 @@ export let saveFiles = function(files, directory) {
         formData.append('files', files[i]);
     }
 
-    
+
 
     // Post
     fetch('/save-files', {
@@ -196,7 +235,7 @@ export let saveFiles = function(files, directory) {
             }
         })
 
-        
+
         .catch(error => {
         console.log('Error uploading file:', error);
     });

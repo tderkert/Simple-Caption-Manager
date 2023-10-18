@@ -4,6 +4,7 @@
 
     // Modules
     import ModuleSearchReplace from "/src/components/moduleSearchReplace.svelte";
+    import ModuleCleanCaptions from "/src/components/moduleCleanCaptions.svelte";
     import ModuleAppendString from "/src/components/moduleAppendString.svelte";
 
     const dispatch = createEventDispatcher();
@@ -20,7 +21,7 @@
             addFilenamesToCaptions: true
         });
     }
-    
+
 </script>
 
 <div class="flex flex-col divide-y divide-slate-700 bg-slate-800">
@@ -32,6 +33,17 @@
         </div>
         <!-- CONTENT -->
         <ModuleSearchReplace />
+    </div>
+    <!-- END CONTAINER -->
+
+    <!-- CONTAINER -->
+    <div class="flex flex-col">
+        <!-- HEADER -->
+        <div class="p-4 pb-0">
+            <h2 class="text-medium">Tidy Captions</h2>
+        </div>
+        <!-- CONTENT -->
+        <ModuleCleanCaptions />
     </div>
     <!-- END CONTAINER -->
 
